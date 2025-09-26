@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Shield, TrendingUp, Users, Lock, ArrowRight } from 'lucide-react';
 import { useWeb3 } from '../contexts/Web3Context';
+import ContractInfo from '../components/ContractInfo';
 
 const Home = () => {
   const { account } = useWeb3();
@@ -30,10 +31,10 @@ const Home = () => {
   ];
 
   return (
-    <div className="max-w-7xl mx-auto">
+    <div className="max-w-screen mx-auto">
       {/* Hero Section */}
       <div className="text-center py-20">
-        <h1 className="text-5xl font-bold text-gray-900 mb-6">
+        <h1 className="text-5xl font-bold text-black mb-6">
           The Future of Rental Agreements
         </h1>
         <p className="text-xl text-gray-600 mb-8 max-w-3xl mx-auto">
@@ -46,14 +47,14 @@ const Home = () => {
             <>
               <Link
                 to="/dashboard"
-                className="inline-flex items-center px-8 py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg transition-colors"
+                className="inline-flex items-center px-8 py-3 bg-black hover:bg-gray-800 text-white font-semibold rounded-lg transition-colors"
               >
                 Go to Dashboard
                 <ArrowRight className="ml-2 w-5 h-5" />
               </Link>
               <Link
                 to="/create-agreement"
-                className="inline-flex items-center px-8 py-3 bg-green-600 hover:bg-green-700 text-white font-semibold rounded-lg transition-colors"
+                className="inline-flex items-center px-8 py-3 bg-gray-800 hover:bg-gray-700 text-white font-semibold rounded-lg transition-colors"
               >
                 Create Agreement
                 <ArrowRight className="ml-2 w-5 h-5" />
@@ -73,7 +74,7 @@ const Home = () => {
       {/* Features Section */}
       <div className="py-20 bg-white rounded-2xl shadow-sm">
         <div className="text-center mb-16">
-          <h2 className="text-3xl font-bold text-gray-900 mb-4">
+          <h2 className="text-3xl font-bold text-black mb-4">
             Why Choose CryptoRent?
           </h2>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto">
@@ -83,11 +84,11 @@ const Home = () => {
 
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 px-8">
           {features.map((feature, index) => (
-            <div key={index} className="text-center p-6 rounded-xl hover:shadow-lg transition-shadow">
-              <div className="inline-flex items-center justify-center w-16 h-16 bg-blue-100 rounded-full mb-6">
-                <feature.icon className="w-8 h-8 text-blue-600" />
+            <div key={index} className="text-center p-6 rounded-xl hover:shadow-lg transition-shadow border border-gray-200">
+              <div className="inline-flex items-center justify-center w-16 h-16 bg-gray-100 rounded-full mb-6">
+                <feature.icon className="w-8 h-8 text-black" />
               </div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-3">
+              <h3 className="text-xl font-semibold text-black mb-3">
                 {feature.title}
               </h3>
               <p className="text-gray-600">
@@ -184,6 +185,22 @@ const Home = () => {
               </p>
             </div>
           </div>
+        </div>
+      </div>
+
+      {/* Contract Information Section */}
+      <div className="py-20">
+        <div className="text-center mb-12">
+          <h2 className="text-3xl font-bold text-black mb-4">
+            Live Smart Contracts
+          </h2>
+          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+            Our platform is powered by deployed smart contracts on both Ethereum Sepolia and Flow EVM testnets.
+          </p>
+        </div>
+        
+        <div className="max-w-4xl mx-auto">
+          <ContractInfo />
         </div>
       </div>
     </div>

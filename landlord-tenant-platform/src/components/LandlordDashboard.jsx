@@ -88,13 +88,13 @@ const LandlordDashboard = () => {
   const getStatusColor = (status) => {
     switch (status) {
       case 'active':
-        return 'bg-green-100 text-green-800';
+        return 'bg-gray-100 text-black';
       case 'pending_tenant_signature':
-        return 'bg-yellow-100 text-yellow-800';
+        return 'bg-gray-200 text-gray-800';
       case 'pending_landlord_signature':
-        return 'bg-blue-100 text-blue-800';
+        return 'bg-gray-200 text-gray-800';
       case 'expired':
-        return 'bg-red-100 text-red-800';
+        return 'bg-gray-300 text-gray-900';
       default:
         return 'bg-gray-100 text-gray-800';
     }
@@ -132,7 +132,7 @@ const LandlordDashboard = () => {
         </div>
         <Link
           to="/create-agreement"
-          className="inline-flex items-center px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg transition-colors"
+          className="inline-flex items-center px-6 py-3 bg-black hover:bg-gray-800 text-white font-semibold rounded-lg transition-colors"
         >
           <Plus className="w-5 h-5 mr-2" />
           New Agreement
@@ -159,8 +159,8 @@ const LandlordDashboard = () => {
               <p className="text-sm font-medium text-gray-600">Active Rentals</p>
               <p className="text-2xl font-bold text-gray-900">{stats.activeRentals}</p>
             </div>
-            <div className="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center">
-              <Check className="w-6 h-6 text-green-600" />
+            <div className="w-12 h-12 bg-gray-100 rounded-lg flex items-center justify-center">
+              <Check className="w-6 h-6 text-black" />
             </div>
           </div>
         </div>
@@ -171,8 +171,8 @@ const LandlordDashboard = () => {
               <p className="text-sm font-medium text-gray-600">Monthly Income</p>
               <p className="text-2xl font-bold text-gray-900">${stats.monthlyRentIncome}</p>
             </div>
-            <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
-              <DollarSign className="w-6 h-6 text-blue-600" />
+            <div className="w-12 h-12 bg-gray-100 rounded-lg flex items-center justify-center">
+              <DollarSign className="w-6 h-6 text-black" />
             </div>
           </div>
         </div>
@@ -183,8 +183,8 @@ const LandlordDashboard = () => {
               <p className="text-sm font-medium text-gray-600">Total Yield Earned</p>
               <p className="text-2xl font-bold text-gray-900">${stats.totalYieldEarned.toFixed(2)}</p>
             </div>
-            <div className="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center">
-              <TrendingUp className="w-6 h-6 text-purple-600" />
+            <div className="w-12 h-12 bg-gray-100 rounded-lg flex items-center justify-center">
+              <TrendingUp className="w-6 h-6 text-black" />
             </div>
           </div>
         </div>
@@ -208,16 +208,16 @@ const LandlordDashboard = () => {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
           <Link
             to="/create-agreement"
-            className="flex items-center space-x-3 p-4 bg-blue-50 hover:bg-blue-100 rounded-lg transition-colors"
+            className="flex items-center space-x-3 p-4 bg-gray-50 hover:bg-gray-100 rounded-lg transition-colors"
           >
-            <Plus className="w-6 h-6 text-blue-600" />
+            <Plus className="w-6 h-6 text-black" />
             <div className="text-left">
-              <p className="font-medium text-blue-900">Create Agreement</p>
-              <p className="text-sm text-blue-600">Add new rental property</p>
+              <p className="font-medium text-black">Create Agreement</p>
+              <p className="text-sm text-gray-600">Add new rental property</p>
             </div>
           </Link>
           
-          <button className="flex items-center space-x-3 p-4 bg-green-50 hover:bg-green-100 rounded-lg transition-colors">
+          <button className="flex items-center space-x-3 p-4 bg-gray-50 hover:bg-gray-100 rounded-lg transition-colors">
             <TrendingUp className="w-6 h-6 text-green-600" />
             <div className="text-left">
               <p className="font-medium text-green-900">Withdraw Yield</p>

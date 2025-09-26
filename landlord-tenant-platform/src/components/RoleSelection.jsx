@@ -6,15 +6,15 @@ const RoleSelection = () => {
   const { selectRole } = useRole();
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center p-4">
+    <div className="min-h-screen w-screen bg-white flex items-center justify-center p-4">
       <div className="max-w-4xl w-full">
         <div className="text-center mb-12">
           <div className="flex justify-center mb-6">
-            <div className="w-16 h-16 bg-blue-600 rounded-full flex items-center justify-center">
+            <div className="w-16 h-16 bg-black rounded-full flex items-center justify-center">
               <Home className="w-8 h-8 text-white" />
             </div>
           </div>
-          <h1 className="text-4xl font-bold text-gray-900 mb-4">
+          <h1 className="text-4xl font-bold text-black mb-4">
             Welcome to CryptoRent
           </h1>
           <p className="text-xl text-gray-600 max-w-2xl mx-auto">
@@ -26,14 +26,14 @@ const RoleSelection = () => {
           {/* Landlord Option */}
           <div 
             onClick={() => selectRole('landlord')}
-            className="bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 cursor-pointer transform hover:-translate-y-2 border-2 border-transparent hover:border-blue-500 p-8"
+            className="bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 cursor-pointer transform hover:-translate-y-2 border-2 border-gray-200 hover:border-black p-8"
           >
             <div className="text-center">
-              <div className="inline-flex items-center justify-center w-20 h-20 bg-blue-100 rounded-full mb-6">
-                <TrendingUp className="w-10 h-10 text-blue-600" />
+              <div className="inline-flex items-center justify-center w-20 h-20 bg-gray-100 rounded-full mb-6">
+                <TrendingUp className="w-10 h-10 text-black" />
               </div>
               
-              <h2 className="text-2xl font-bold text-gray-900 mb-4">
+              <h2 className="text-2xl font-bold text-black mb-4">
                 I'm a Landlord
               </h2>
               
@@ -43,24 +43,24 @@ const RoleSelection = () => {
               
               <div className="space-y-3 text-left">
                 <div className="flex items-center space-x-3">
-                  <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+                  <div className="w-2 h-2 bg-black rounded-full"></div>
                   <span className="text-sm text-gray-700">Create rental agreements</span>
                 </div>
                 <div className="flex items-center space-x-3">
-                  <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+                  <div className="w-2 h-2 bg-black rounded-full"></div>
                   <span className="text-sm text-gray-700">Earn 4.5% APY on deposits</span>
                 </div>
                 <div className="flex items-center space-x-3">
-                  <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+                  <div className="w-2 h-2 bg-black rounded-full"></div>
                   <span className="text-sm text-gray-700">Receive crypto rent payments</span>
                 </div>
                 <div className="flex items-center space-x-3">
-                  <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+                  <div className="w-2 h-2 bg-black rounded-full"></div>
                   <span className="text-sm text-gray-700">Manage multiple properties</span>
                 </div>
               </div>
               
-              <button className="w-full mt-8 px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg transition-colors">
+              <button className="w-full mt-8 px-6 py-3 bg-black hover:bg-gray-800 text-white font-semibold rounded-lg transition-colors">
                 Continue as Landlord
               </button>
             </div>
@@ -69,14 +69,14 @@ const RoleSelection = () => {
           {/* Tenant Option */}
           <div 
             onClick={() => selectRole('tenant')}
-            className="bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 cursor-pointer transform hover:-translate-y-2 border-2 border-transparent hover:border-green-500 p-8"
+            className="bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 cursor-pointer transform hover:-translate-y-2 border-2 border-gray-200 hover:border-black p-8"
           >
             <div className="text-center">
-              <div className="inline-flex items-center justify-center w-20 h-20 bg-green-100 rounded-full mb-6">
-                <Shield className="w-10 h-10 text-green-600" />
+              <div className="inline-flex items-center justify-center w-20 h-20 bg-gray-100 rounded-full mb-6">
+                <Shield className="w-10 h-10 text-black" />
               </div>
               
-              <h2 className="text-2xl font-bold text-gray-900 mb-4">
+              <h2 className="text-2xl font-bold text-black mb-4">
                 I'm a Tenant
               </h2>
               
@@ -86,24 +86,24 @@ const RoleSelection = () => {
               
               <div className="space-y-3 text-left">
                 <div className="flex items-center space-x-3">
-                  <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+                  <div className="w-2 h-2 bg-black rounded-full"></div>
                   <span className="text-sm text-gray-700">Sign digital agreements</span>
                 </div>
                 <div className="flex items-center space-x-3">
-                  <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+                  <div className="w-2 h-2 bg-black rounded-full"></div>
                   <span className="text-sm text-gray-700">Secure deposit protection</span>
                 </div>
                 <div className="flex items-center space-x-3">
-                  <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+                  <div className="w-2 h-2 bg-black rounded-full"></div>
                   <span className="text-sm text-gray-700">Earn 1% payment rewards</span>
                 </div>
                 <div className="flex items-center space-x-3">
-                  <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+                  <div className="w-2 h-2 bg-black rounded-full"></div>
                   <span className="text-sm text-gray-700">Pay rent with crypto</span>
                 </div>
               </div>
               
-              <button className="w-full mt-8 px-6 py-3 bg-green-600 hover:bg-green-700 text-white font-semibold rounded-lg transition-colors">
+              <button className="w-full mt-8 px-6 py-3 bg-black hover:bg-gray-800 text-white font-semibold rounded-lg transition-colors">
                 Continue as Tenant
               </button>
             </div>

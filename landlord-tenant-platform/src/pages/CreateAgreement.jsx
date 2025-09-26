@@ -5,7 +5,7 @@ import { useWeb3 } from '../contexts/Web3Context';
 import { toast } from 'react-toastify';
 
 const CreateAgreement = () => {
-  const { account, chainId } = useWeb3();
+  const { account, chainId, createAgreement } = useWeb3();
   const navigate = useNavigate();
   
   const [formData, setFormData] = useState({
@@ -70,26 +70,24 @@ const CreateAgreement = () => {
     setIsSubmitting(true);
     
     try {
-      // Here you would interact with your smart contract to create the agreement
-      // For now, we'll simulate the process
+      // Calculate lease duration from dates
+      const startDate = new Date(formData.startDate);
+      const endDate = new Date(formData.endDate);
+      const diffInMs = endDate - startDate;
+      const leaseTerm = Math.ceil(diffInMs / (1000 * 60 * 60 * 24 * 30)); // Convert to months
       
-      const agreementData = {
-        ...formData,
-        id: Date.now().toString(),
-        landlord: account,
-        status: 'pending_tenant_signature',
-        createdAt: new Date().toISOString(),
-        yieldEarned: '0',
-      };
-
-      // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 2000));
-      
-      console.log('Agreement created:', agreementData);
+      // Create agreement using smart contract
+      await createAgreement(
+        formData.tenantAddress,
+        formData.rentAmount,
+        formData.securityDeposit,
+        leaseTerm,
+        formData.propertyAddress
+      );
       
       toast.success('Agreement created successfully! Sending to tenant for signature.');
       
-      // Navigate to dashboard or agreement details
+      // Navigate to dashboard
       navigate('/dashboard');
       
     } catch (error) {

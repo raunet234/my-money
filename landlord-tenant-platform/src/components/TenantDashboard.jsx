@@ -72,13 +72,13 @@ const TenantDashboard = () => {
   const getStatusColor = (status) => {
     switch (status) {
       case 'active':
-        return 'bg-green-100 text-green-800';
+        return 'bg-gray-100 text-black';
       case 'pending_tenant_signature':
-        return 'bg-yellow-100 text-yellow-800';
+        return 'bg-gray-200 text-gray-800';
       case 'pending_payment':
-        return 'bg-orange-100 text-orange-800';
+        return 'bg-gray-200 text-gray-800';
       case 'expired':
-        return 'bg-red-100 text-red-800';
+        return 'bg-gray-300 text-gray-900';
       default:
         return 'bg-gray-100 text-gray-800';
     }
@@ -122,8 +122,8 @@ const TenantDashboard = () => {
               <p className="text-sm font-medium text-gray-600">Active Rentals</p>
               <p className="text-2xl font-bold text-gray-900">{stats.activeRentals}</p>
             </div>
-            <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
-              <FileText className="w-6 h-6 text-blue-600" />
+            <div className="w-12 h-12 bg-gray-100 rounded-lg flex items-center justify-center">
+              <FileText className="w-6 h-6 text-black" />
             </div>
           </div>
         </div>
@@ -134,8 +134,8 @@ const TenantDashboard = () => {
               <p className="text-sm font-medium text-gray-600">Total Rewards</p>
               <p className="text-2xl font-bold text-gray-900">${stats.totalRewards.toFixed(2)}</p>
             </div>
-            <div className="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center">
-              <Award className="w-6 h-6 text-green-600" />
+            <div className="w-12 h-12 bg-gray-100 rounded-lg flex items-center justify-center">
+              <Award className="w-6 h-6 text-black" />
             </div>
           </div>
         </div>
@@ -146,8 +146,8 @@ const TenantDashboard = () => {
               <p className="text-sm font-medium text-gray-600">On-Time Payments</p>
               <p className="text-2xl font-bold text-gray-900">{stats.onTimePayments}</p>
             </div>
-            <div className="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center">
-              <TrendingUp className="w-6 h-6 text-purple-600" />
+            <div className="w-12 h-12 bg-gray-100 rounded-lg flex items-center justify-center">
+              <TrendingUp className="w-6 h-6 text-black" />
             </div>
           </div>
         </div>
@@ -171,23 +171,23 @@ const TenantDashboard = () => {
       <div className="bg-white rounded-xl shadow-sm border p-6 mb-8">
         <h2 className="text-lg font-semibold text-gray-900 mb-4">Quick Actions</h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <button className="flex items-center space-x-3 p-4 bg-blue-50 hover:bg-blue-100 rounded-lg transition-colors">
-            <CreditCard className="w-6 h-6 text-blue-600" />
+          <button className="flex items-center space-x-3 p-4 bg-gray-50 hover:bg-gray-100 rounded-lg transition-colors">
+            <CreditCard className="w-6 h-6 text-black" />
             <div className="text-left">
-              <p className="font-medium text-blue-900">Pay Rent</p>
-              <p className="text-sm text-blue-600">Make your monthly payment</p>
+              <p className="font-medium text-black">Pay Rent</p>
+              <p className="text-sm text-gray-600">Make your monthly payment</p>
             </div>
           </button>
           
-          <button className="flex items-center space-x-3 p-4 bg-green-50 hover:bg-green-100 rounded-lg transition-colors">
-            <Award className="w-6 h-6 text-green-600" />
+          <button className="flex items-center space-x-3 p-4 bg-gray-50 hover:bg-gray-100 rounded-lg transition-colors">
+            <Award className="w-6 h-6 text-black" />
             <div className="text-left">
-              <p className="font-medium text-green-900">View Rewards</p>
-              <p className="text-sm text-green-600">Check earned rewards</p>
+              <p className="font-medium text-black">View Rewards</p>
+              <p className="text-sm text-gray-600">Check earned rewards</p>
             </div>
           </button>
           
-          <button className="flex items-center space-x-3 p-4 bg-purple-50 hover:bg-purple-100 rounded-lg transition-colors">
+          <button className="flex items-center space-x-3 p-4 bg-gray-50 hover:bg-gray-100 rounded-lg transition-colors">
             <FileText className="w-6 h-6 text-purple-600" />
             <div className="text-left">
               <p className="font-medium text-purple-900">View Agreements</p>

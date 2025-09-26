@@ -27,10 +27,10 @@ const Navbar = () => {
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
           <Link to="/" className="flex items-center space-x-2">
-            <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center">
+            <div className="w-8 h-8 bg-black rounded-lg flex items-center justify-center">
               <Home className="w-5 h-5 text-white" />
             </div>
-            <span className="text-xl font-bold text-gray-800">CryptoRent</span>
+            <span className="text-xl font-bold text-black">CryptoRent</span>
           </Link>
 
           {/* Navigation Links */}
@@ -39,8 +39,8 @@ const Navbar = () => {
               to="/"
               className={`flex items-center space-x-1 px-3 py-2 rounded-md text-sm font-medium transition-colors ${
                 isActive('/') 
-                  ? 'text-blue-600 bg-blue-50' 
-                  : 'text-gray-700 hover:text-blue-600 hover:bg-gray-50'
+                  ? 'text-black bg-gray-100' 
+                  : 'text-gray-700 hover:text-black hover:bg-gray-50'
               }`}
             >
               <Home className="w-4 h-4" />
@@ -53,8 +53,8 @@ const Navbar = () => {
                   to="/dashboard"
                   className={`flex items-center space-x-1 px-3 py-2 rounded-md text-sm font-medium transition-colors ${
                     isActive('/dashboard') 
-                      ? 'text-blue-600 bg-blue-50' 
-                      : 'text-gray-700 hover:text-blue-600 hover:bg-gray-50'
+                      ? 'text-black bg-gray-100' 
+                      : 'text-gray-700 hover:text-black hover:bg-gray-50'
                   }`}
                 >
                   <BarChart3 className="w-4 h-4" />
@@ -66,8 +66,8 @@ const Navbar = () => {
                     to="/create-agreement"
                     className={`flex items-center space-x-1 px-3 py-2 rounded-md text-sm font-medium transition-colors ${
                       isActive('/create-agreement') 
-                        ? 'text-blue-600 bg-blue-50' 
-                        : 'text-gray-700 hover:text-blue-600 hover:bg-gray-50'
+                        ? 'text-black bg-gray-100' 
+                        : 'text-gray-700 hover:text-black hover:bg-gray-50'
                     }`}
                   >
                     <FileText className="w-4 h-4" />
@@ -80,8 +80,8 @@ const Navbar = () => {
                     to="/browse-agreements"
                     className={`flex items-center space-x-1 px-3 py-2 rounded-md text-sm font-medium transition-colors ${
                       isActive('/browse-agreements') 
-                        ? 'text-blue-600 bg-blue-50' 
-                        : 'text-gray-700 hover:text-blue-600 hover:bg-gray-50'
+                        ? 'text-black bg-gray-100' 
+                        : 'text-gray-700 hover:text-black hover:bg-gray-50'
                     }`}
                   >
                     <FileText className="w-4 h-4" />
@@ -95,7 +95,7 @@ const Navbar = () => {
           {/* Wallet Connection */}
           <div className="flex items-center space-x-4">
             {userRole && (
-              <div className="hidden sm:flex items-center px-3 py-1 bg-purple-100 rounded-full text-xs font-medium text-purple-700">
+              <div className="hidden sm:flex items-center px-3 py-1 bg-gray-100 rounded-full text-xs font-medium text-black">
                 <Users className="w-3 h-3 mr-1" />
                 {userRole.charAt(0).toUpperCase() + userRole.slice(1)}
               </div>
@@ -109,9 +109,9 @@ const Navbar = () => {
             
             {account ? (
               <div className="flex items-center space-x-3">
-                <div className="flex items-center space-x-2 px-3 py-2 bg-green-50 rounded-lg">
-                  <div className="w-2 h-2 bg-green-500 rounded-full"></div>
-                  <span className="text-sm font-medium text-green-700">
+                <div className="flex items-center space-x-2 px-3 py-2 bg-gray-100 rounded-lg">
+                  <div className="w-2 h-2 bg-black rounded-full"></div>
+                  <span className="text-sm font-medium text-black">
                     {account.slice(0, 6)}...{account.slice(-4)}
                   </span>
                 </div>
@@ -119,7 +119,7 @@ const Navbar = () => {
                 {userRole && (
                   <button
                     onClick={switchRole}
-                    className="flex items-center space-x-1 px-3 py-2 text-sm font-medium text-purple-700 bg-purple-50 hover:bg-purple-100 rounded-lg transition-colors"
+                    className="flex items-center space-x-1 px-3 py-2 text-sm font-medium text-black bg-gray-100 hover:bg-gray-200 rounded-lg transition-colors"
                     title="Switch Role"
                   >
                     <RefreshCw className="w-4 h-4" />
@@ -138,7 +138,7 @@ const Navbar = () => {
               <button
                 onClick={connectWallet}
                 disabled={isConnecting}
-                className="flex items-center space-x-2 px-4 py-2 bg-blue-600 hover:bg-blue-700 disabled:bg-blue-300 text-white rounded-lg transition-colors"
+                className="flex items-center space-x-2 px-4 py-2 bg-black hover:bg-gray-800 disabled:bg-gray-400 text-white rounded-lg transition-colors"
               >
                 <Wallet className="w-4 h-4" />
                 <span>{isConnecting ? 'Connecting...' : 'Connect Wallet'}</span>
