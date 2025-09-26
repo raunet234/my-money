@@ -1,0 +1,18 @@
+{
+  "name": "rental-escrow-contracts",
+  "version": "1.0.0",
+  "description": "Smart contracts for the CryptoRent platform",
+  "scripts": {
+    "compile": "hardhat compile",
+    "test": "hardhat test",
+    "deploy:sepolia": "hardhat run scripts/deploy.js --network sepolia",
+    "deploy:flow": "hardhat run scripts/deploy.js --network flow",
+    "verify:sepolia": "hardhat verify --network sepolia",
+    "verify:flow": "hardhat verify --network flow"
+  },
+  "devDependencies": {
+    "@nomicfoundation/hardhat-toolbox": "^4.0.0",
+    "@openzeppelin/contracts": "^5.0.0",
+    "hardhat": "^2.19.0"
+  }
+}
