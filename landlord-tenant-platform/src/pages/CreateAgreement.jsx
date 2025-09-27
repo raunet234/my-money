@@ -81,8 +81,7 @@ const CreateAgreement = () => {
         formData.tenantAddress,
         formData.rentAmount,
         formData.securityDeposit,
-        leaseTerm,
-        formData.propertyAddress
+        leaseTerm
       );
       
       toast.success('Agreement created successfully! Sending to tenant for signature.');

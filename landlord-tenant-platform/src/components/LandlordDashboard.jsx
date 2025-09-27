@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { Plus, FileText, DollarSign, TrendingUp, Clock, Check, AlertCircle, Building } from 'lucide-react';
-import { useWeb3 } from '../contexts/Web3Context';
+import { Plus, FileText, DollarSign, TrendingUp, Clock, Check, AlertCircle, Building, RefreshCw } from 'lucide-react';
+import { useWeb3, useRole } from '../contexts/Web3Context';
 
 const LandlordDashboard = () => {
   const { account } = useWeb3();
+  const { switchRole } = useRole();
   const [agreements, setAgreements] = useState([]);
   const [stats, setStats] = useState({
     totalProperties: 0,
@@ -127,7 +128,20 @@ const LandlordDashboard = () => {
       {/* Header */}
       <div className="flex justify-between items-center mb-8">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900">Landlord Dashboard</h1>
+          <div className="flex items-center space-x-3 mb-1">
+            <h1 className="text-3xl font-bold text-gray-900">Landlord Dashboard</h1>
+            <span className="bg-green-100 text-green-800 text-sm font-medium px-3 py-1 rounded-full">
+              🏠 Landlord Mode
+            </span>
+            <button
+              onClick={switchRole}
+              className="flex items-center space-x-1 px-2 py-1 text-xs text-gray-500 hover:text-gray-700 hover:bg-gray-100 rounded transition-colors"
+              title="Wrong role? Click to switch"
+            >
+              <RefreshCw className="w-3 h-3" />
+              <span className="hidden sm:inline">Switch</span>
+            </button>
+          </div>
           <p className="text-gray-600 mt-1">Manage your properties, tenants, and earnings</p>
         </div>
         <Link

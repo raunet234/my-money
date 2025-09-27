@@ -7,6 +7,8 @@ import Home from './pages/Home';
 import Dashboard from './pages/Dashboard';
 import CreateAgreement from './pages/CreateAgreement';
 import ViewAgreement from './pages/ViewAgreement';
+import TestRoles from './pages/TestRoles';
+import MyAgreements from './pages/MyAgreements';
 import 'react-toastify/dist/ReactToastify.css';
 
 const AppContent = () => {
@@ -27,6 +29,8 @@ const AppContent = () => {
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/create-agreement" element={<CreateAgreement />} />
           <Route path="/agreement/:id" element={<ViewAgreement />} />
+          <Route path="/my-agreements" element={<MyAgreements />} />
+          <Route path="/test-roles" element={<TestRoles />} />
         </Routes>
       </main>
       <ToastContainer position="top-right" />

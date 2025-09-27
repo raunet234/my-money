@@ -73,14 +73,14 @@ export const Web3Provider = ({ children }) => {
     }
   };
 
-  const disconnectWallet = () => {
-    setAccount(null);
+    const disconnectWallet = () => {
     setProvider(null);
     setSigner(null);
+    setAccount(null);
     setChainId(null);
     setUserRole(null);
     setIsRoleSelected(false);
-    toast.info('Wallet disconnected');
+    toast.success('Wallet disconnected');
   };
 
   const selectRole = (role) => {
@@ -100,6 +100,21 @@ export const Web3Provider = ({ children }) => {
     }
   };
 
+  const getNetworkNameById = (chainId) => {
+    switch (chainId) {
+      case 11155111:
+        return 'Ethereum Sepolia';
+      case 545:
+        return 'Flow EVM Testnet';
+      case 1:
+        return 'Ethereum Mainnet';
+      case 1001:
+        return 'Klaytn Baobab';
+      default:
+        return `Network ${chainId}`;
+    }
+  };
+
   // Contract interaction functions
   const getContract = () => {
     if (!signer || !chainId) return null;
@@ -113,44 +128,85 @@ export const Web3Provider = ({ children }) => {
     return new ethers.Contract(tokenAddress, ERC20_ABI, signer);
   };
 
-  const createAgreement = async (tenantAddress, rentAmount, securityDeposit, leaseTerm, propertyAddress) => {
+  const createAgreement = async (tenantAddress, rentAmount, securityDeposit, leaseTerm) => {
     try {
+      console.log('createAgreement called with:', { tenantAddress, rentAmount, securityDeposit, leaseTerm });
+      console.log('Current state - account:', account, 'chainId:', chainId, 'signer:', !!signer);
+      
+      // Check if we're on a supported network
+      if (chainId !== 11155111 && chainId !== 545) {
+        throw new Error(`Unsupported network. Please switch to Ethereum Sepolia (chainId: 11155111) or Flow EVM Testnet (chainId: 545). Current chainId: ${chainId}`);
+      }
+      
+      // Refresh provider/signer to ensure they're up to date
+      const currentNetwork = await provider.getNetwork();
+      if (Number(currentNetwork.chainId) !== chainId) {
+        console.log('Network mismatch detected, refreshing connection...');
+        const web3Provider = new ethers.BrowserProvider(window.ethereum);
+        const web3Signer = await web3Provider.getSigner();
+        setProvider(web3Provider);
+        setSigner(web3Signer);
+        
+        // Use the fresh provider/signer
+        const freshContract = new ethers.Contract(
+          CONTRACT_ADDRESSES[chainId], 
+          RENTAL_ESCROW_ABI, 
+          web3Signer
+        );
+        
+        return await createAgreementWithContract(freshContract, tenantAddress, rentAmount, securityDeposit, leaseTerm);
+      }
+      
       const contract = getContract();
       if (!contract) throw new Error('Contract not available');
-
-      // Get token address based on current chain
-      const tokenAddresses = TOKEN_ADDRESSES[chainId];
-      if (!tokenAddresses) throw new Error('Tokens not supported on this network');
       
-      const tokenAddress = chainId === 11155111 ? tokenAddresses.PYUSD : tokenAddresses.USDF;
-      
-      // Convert amounts to wei (assuming 18 decimals)
-      const rentAmountWei = ethers.parseUnits(rentAmount.toString(), 18);
-      const securityDepositWei = ethers.parseUnits(securityDeposit.toString(), 18);
-      
-      // Calculate dates
-      const startDate = Math.floor(Date.now() / 1000); // Current timestamp
-      const endDate = startDate + (leaseTerm * 30 * 24 * 60 * 60); // Lease term in months
-      const paymentDay = 1; // Default to 1st of month
-
-      const tx = await contract.createAgreement(
-        tenantAddress,
-        tokenAddress,
-        rentAmountWei,
-        securityDepositWei,
-        startDate,
-        endDate,
-        paymentDay
-      );
-
-      await tx.wait();
-      toast.success('Agreement created successfully!');
-      return tx;
+      return await createAgreementWithContract(contract, tenantAddress, rentAmount, securityDeposit, leaseTerm);
     } catch (error) {
       console.error('Error creating agreement:', error);
-      toast.error('Failed to create agreement');
+      
+      if (error.code === 'NETWORK_ERROR' && error.message.includes('network changed')) {
+        toast.error('Network changed during transaction. Please try again.');
+      } else if (error.message.includes('user rejected')) {
+        toast.error('Transaction rejected by user');
+      } else if (error.message.includes('insufficient funds')) {
+        toast.error('Insufficient funds for transaction');
+      } else {
+        toast.error('Failed to create agreement. Please try again.');
+      }
+      
       throw error;
     }
+  };
+
+  const createAgreementWithContract = async (contract, tenantAddress, rentAmount, securityDeposit, leaseTerm) => {
+    // Get token address based on current chain
+    const tokenAddresses = TOKEN_ADDRESSES[chainId];
+    if (!tokenAddresses) throw new Error('Tokens not supported on this network');
+    
+    const tokenAddress = chainId === 11155111 ? tokenAddresses.PYUSD : tokenAddresses.USDF;
+    
+    // Convert amounts to wei (assuming 18 decimals)
+    const rentAmountWei = ethers.parseUnits(rentAmount.toString(), 18);
+    const securityDepositWei = ethers.parseUnits(securityDeposit.toString(), 18);
+    
+    // Calculate dates
+    const startDate = Math.floor(Date.now() / 1000); // Current timestamp
+    const endDate = startDate + (leaseTerm * 30 * 24 * 60 * 60); // Lease term in months
+    const paymentDay = 1; // Default to 1st of month
+
+    const tx = await contract.createAgreement(
+      tenantAddress,
+      tokenAddress,
+      rentAmountWei,
+      securityDepositWei,
+      startDate,
+      endDate,
+      paymentDay
+    );
+
+    await tx.wait();
+    toast.success('Agreement created successfully!');
+    return tx;
   };
 
   const signAgreementAndDeposit = async (agreementId, securityDeposit, tokenAddress) => {
@@ -301,8 +357,24 @@ export const Web3Provider = ({ children }) => {
         }
       });
 
-      window.ethereum.on('chainChanged', (chainId) => {
-        setChainId(parseInt(chainId, 16));
+      window.ethereum.on('chainChanged', async (chainId) => {
+        const newChainId = parseInt(chainId, 16);
+        setChainId(newChainId);
+        
+        // Refresh provider and signer when network changes
+        try {
+          if (account) {
+            const web3Provider = new ethers.BrowserProvider(window.ethereum);
+            const web3Signer = await web3Provider.getSigner();
+            setProvider(web3Provider);
+            setSigner(web3Signer);
+            
+            toast.info(`Switched to network: ${getNetworkNameById(newChainId)}`);
+          }
+        } catch (error) {
+          console.error('Error refreshing provider after network change:', error);
+          toast.error('Network changed. Please reconnect your wallet.');
+        }
       });
     }
 
@@ -312,7 +384,7 @@ export const Web3Provider = ({ children }) => {
         window.ethereum.removeAllListeners('chainChanged');
       }
     };
-  }, []);
+  }, [account]);
 
   const web3Value = {
     account,

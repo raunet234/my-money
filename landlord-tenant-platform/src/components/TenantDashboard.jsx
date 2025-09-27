@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { FileText, DollarSign, Award, Clock, Calendar, TrendingUp, AlertCircle, CreditCard } from 'lucide-react';
-import { useWeb3 } from '../contexts/Web3Context';
+import { FileText, DollarSign, Award, Clock, Calendar, TrendingUp, AlertCircle, CreditCard, RefreshCw } from 'lucide-react';
+import { useWeb3, useRole } from '../contexts/Web3Context';
 
 const TenantDashboard = () => {
   const { account } = useWeb3();
+  const { switchRole } = useRole();
   const [agreements, setAgreements] = useState([]);
   const [stats, setStats] = useState({
     activeRentals: 0,
@@ -110,8 +111,26 @@ const TenantDashboard = () => {
     <div className="max-w-7xl mx-auto">
       {/* Header */}
       <div className="mb-8">
-        <h1 className="text-3xl font-bold text-gray-900">Tenant Dashboard</h1>
-        <p className="text-gray-600 mt-1">Manage your rental agreements, payments, and rewards</p>
+        <div className="flex items-center justify-between">
+          <div>
+            <div className="flex items-center space-x-3 mb-1">
+              <h1 className="text-3xl font-bold text-gray-900">Tenant Dashboard</h1>
+              <span className="bg-blue-100 text-blue-800 text-sm font-medium px-3 py-1 rounded-full">
+                🏘️ Tenant Mode
+              </span>
+            </div>
+            <p className="text-gray-600 mt-1">Manage your rental agreements, payments, and rewards</p>
+          </div>
+          
+          <button
+            onClick={switchRole}
+            className="flex items-center space-x-2 px-3 py-2 text-sm text-gray-600 hover:text-gray-800 hover:bg-gray-100 rounded-lg transition-colors"
+            title="Wrong role? Click to switch"
+          >
+            <RefreshCw className="w-4 h-4" />
+            <span className="hidden sm:inline">Switch Role</span>
+          </button>
+        </div>
       </div>
 
       {/* Stats Grid */}
@@ -187,20 +206,29 @@ const TenantDashboard = () => {
             </div>
           </button>
           
-          <button className="flex items-center space-x-3 p-4 bg-gray-50 hover:bg-gray-100 rounded-lg transition-colors">
+          <Link 
+            to="/my-agreements"
+            className="flex items-center space-x-3 p-4 bg-gray-50 hover:bg-gray-100 rounded-lg transition-colors"
+          >
             <FileText className="w-6 h-6 text-purple-600" />
             <div className="text-left">
-              <p className="font-medium text-purple-900">View Agreements</p>
+              <p className="font-medium text-purple-900">View All Agreements</p>
               <p className="text-sm text-purple-600">Manage your rentals</p>
             </div>
-          </button>
+          </Link>
         </div>
       </div>
 
       {/* Agreements List */}
       <div className="bg-white rounded-xl shadow-sm border">
-        <div className="px-6 py-4 border-b border-gray-200">
-          <h2 className="text-lg font-semibold text-gray-900">Your Rental Agreements</h2>
+        <div className="px-6 py-4 border-b border-gray-200 flex items-center justify-between">
+          <h2 className="text-lg font-semibold text-gray-900">Recent Agreements</h2>
+          <Link 
+            to="/my-agreements"
+            className="text-sm font-medium text-blue-600 hover:text-blue-700 transition-colors"
+          >
+            View All Agreements →
+          </Link>
         </div>
         
         {agreements.length === 0 ? (
@@ -211,7 +239,7 @@ const TenantDashboard = () => {
           </div>
         ) : (
           <div className="divide-y divide-gray-200">
-            {agreements.map((agreement) => (
+            {agreements.slice(0, 2).map((agreement) => (
               <div key={agreement.id} className="p-6 hover:bg-gray-50 transition-colors">
                 <div className="flex items-start justify-between">
                   <div className="flex-1">
